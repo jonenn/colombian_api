@@ -9,7 +9,7 @@ function App() {
 
    useEffect(() => {
       getAllPresidents();
-   });
+   }, []);
 
    const getAllPresidents = async () => {
       try {
@@ -52,6 +52,7 @@ function App() {
          ) : (
             <p>Loading...</p>
          )}
+         <p>{console.log(groupedData)}</p>
       </div>
    );
 }
