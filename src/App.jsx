@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 function App() {
    //  const [allPresidents, setAllPresidents] = useState(null);
    const [groupedData, setGroupedData] = useState(null);
+   const [countedData, setCountedData] = useState(0);
 
    useEffect(() => {
       getAllPresidents();
@@ -16,7 +17,7 @@ function App() {
          const response = await getPresidents();
          //  setAllPresidents(response);
          const grouped = groupByParty(response);
-         setGroupedData(grouped);
+         sortByParty(grouped);
       } catch (error) {
          console.log(error);
       }
@@ -31,6 +32,20 @@ function App() {
          acc[party].push(president);
          return acc;
       }, {});
+   };
+
+   const countByParty = (data) => {
+      console.log(data);
+      return Object.keys(data).reduce((acc, party) => {
+         acc[party] = groupedData[party].length;
+         return acc;
+      }, {});
+   };
+
+   const sortByParty = (data) => {
+      setGroupedData(data);
+      setCountedData(countByParty(groupedData));
+      console.log(countedData);
    };
 
    return (
