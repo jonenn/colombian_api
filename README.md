@@ -63,6 +63,8 @@ After all I added some directories and went for a simple folder structure. It is
 
 Once the initial setup was done I started reading the documentation for the API, looking for the hot spots and generalities around Swagger, then I used Postman (or Thunder) to give it a try. Since is a public API I'm not going to need an environmental variable, so I just put it within a service (a good practice) for consuming the API.
 
+The next thing after consuming the API and making sure the service created (getPresidents) was fetching the data correctly, I needed to sort each president by their political party, so I did know I needed an accumulator which meant using reduce (an array method). Then I realized there was this differentiation between a capitalized party so I made some changes so they would be the same when classified.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start
