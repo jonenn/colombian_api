@@ -61,6 +61,8 @@ First I used Vite (build tool) as an alternative for Webpack (CRA), which will m
 
 After all I added some directories and went for a simple folder structure. It is a good practice to use a CSS normalizer (such as a library, but in this case a custom CSS file), the idea is for it to give consistency across all browsers and start on it all from the same foundation. I also wrote the Documentation part requested for the challenge.
 
+Once the initial setup was done I started reading the documentation for the API, looking for the hot spots and generalities around Swagger, then I used Postman (or Thunder) to give it a try. Since is a public API I'm not going to need an environmental variable, so I just put it within a service (a good practice) for consuming the API.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start
