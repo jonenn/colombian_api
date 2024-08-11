@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 
 function App() {
    //  const [allPresidents, setAllPresidents] = useState(null);
-   const [groupedData, setGroupedData] = useState(null);
-   const [countedData, setCountedData] = useState(0);
+   //  const [groupedData, setGroupedData] = useState(null);
+   //  const [countedData, setCountedData] = useState(0);
+   const [sortedData, setSortedData] = useState(null);
 
    useEffect(() => {
       getAllPresidents();
@@ -16,8 +17,7 @@ function App() {
       try {
          const response = await getPresidents();
          //  setAllPresidents(response);
-         const grouped = groupByParty(response);
-         sortByParty(grouped);
+         sortByParty(response);
       } catch (error) {
          console.log(error);
       }
@@ -35,28 +35,44 @@ function App() {
    };
 
    const countByParty = (data) => {
-      console.log(data);
+      // console.log(data);
       return Object.keys(data).reduce((acc, party) => {
-         acc[party] = groupedData[party].length;
+         acc[party] = data[party].length;
          return acc;
       }, {});
    };
 
-   const sortByParty = (data) => {
-      setGroupedData(data);
-      setCountedData(countByParty(groupedData));
+   const sortByCount = (groupedData, countedData) => {
+      console.log(groupedData);
       console.log(countedData);
+      return Object.keys(groupedData)
+         .map((party) => ({
+            party,
+            count: countedData[party],
+            presidents: groupedData[party],
+         }))
+         .sort((a, b) => b.count - a.count);
+   };
+
+   const sortByParty = (data) => {
+      const grouping = groupByParty(data);
+      const counting = countByParty(grouping);
+      const sorting = sortByCount(grouping, counting);
+      // setGroupedData(grouping);
+      // setCountedData(counting);
+      setSortedData(sorting);
+      console.log(sortedData && sortedData);
    };
 
    return (
       <div className="App">
          <h1>Presidents by Political Party</h1>
-         {groupedData ? (
-            Object.keys(groupedData).map((party) => (
-               <div key={party}>
-                  <h2 className="party-title">{party}</h2>
+         {sortedData ? (
+            sortedData.map((item) => (
+               <div key={item.party}>
+                  <h2 className="party-title">{item.party}</h2>
                   <ul>
-                     {groupedData[party].map((president) => (
+                     {item.presidents.map((president) => (
                         <li key={president.id}>
                            {president.name} {president.lastName}
                         </li>
@@ -67,7 +83,6 @@ function App() {
          ) : (
             <p>Loading...</p>
          )}
-         <p>{console.log(groupedData)}</p>
       </div>
    );
 }
