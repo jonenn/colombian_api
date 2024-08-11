@@ -1,0 +1,63 @@
+/* Box-sizing */
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dt,
+dd,
+figure,
+blockquote,
+hr {
+   margin: 0;
+   padding: 0;
+}
+
+/* Set a consistent font family */
+body {
+   font-family: sans-serif;
+   /* Used following property and value to check it was being used */
+   /* background-color: red; */
+}
+
+/* Remove list styles */
+ul,
+ol {
+   list-style: none;
+}
+
+/* Remove text decoration from links */
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
+/* Improve table layout */
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+/* Set consistent line-height */
+body {
+   line-height: 1.5;
+}
+
+/* Ensure images are responsive */
+img {
+   max-width: 100%;
+   height: auto;
+}
