@@ -13,7 +13,7 @@ function PresidentsByParty() {
          const response = await getPresidents();
          displayData(response);
       } catch (error) {
-         console.log(error);
+         console.error('Error fetching presidents:', error);
       }
    };
 

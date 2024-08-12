@@ -68,7 +68,7 @@ function AttractionsByDepas() {
       }));
    };
 
-   const sortedData = groupedData ? displayData(groupedData) : [];
+   const sortedData = groupedData && displayData(groupedData);
 
    return (
       <div>
