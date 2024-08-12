@@ -4,6 +4,7 @@ import { AccordionTitle } from './AccordionTitle';
 
 function AirportsByRegion() {
    const [groupedData, setGroupedData] = useState({});
+   const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
       getAllAirports();
@@ -122,19 +123,32 @@ function AirportsByRegion() {
       });
    }, [groupedData]);
 
+   const toggleAccordion = (region) => {
+      setExpanded(expanded === region ? null : region);
+   };
+
    return (
       <div>
          <h2>Airports by Region</h2>
          {displayData && displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.region}>
-                  <AccordionTitle>
+                  <AccordionTitle
+                     onClick={() => toggleAccordion(item.region)}
+                     style={{
+                        borderRadius: expanded === item.region ? '' : '.3rem',
+                     }}
+                     expanded={expanded === item.region}
+                  >
                      <h3>{item.region}</h3>
                   </AccordionTitle>
                   {item.departments.map((department) => (
                      <div
                         key={department.department}
                         className="accordion-content"
+                        style={{
+                           display: expanded === item.region ? 'block' : 'none',
+                        }}
                      >
                         <h4>{department.department}</h4>
                         {department.cities.map((city) => (

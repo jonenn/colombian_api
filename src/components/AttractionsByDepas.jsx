@@ -4,6 +4,7 @@ import { AccordionTitle } from './AccordionTitle';
 
 function AttractionsByDepas() {
    const [groupedData, setGroupedData] = useState({});
+   const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
       getAllAttractions();
@@ -71,17 +72,35 @@ function AttractionsByDepas() {
       }));
    }, [groupedData]);
 
+   const toggleAccordion = (department) => {
+      setExpanded(expanded === department ? null : department);
+   };
+
    return (
       <div>
          <h2>Attractions by Department & City</h2>
          {displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.department}>
-                  <AccordionTitle>
+                  <AccordionTitle
+                     onClick={() => toggleAccordion(item.department)}
+                     style={{
+                        borderRadius:
+                           expanded === item.department ? '' : '.3rem',
+                     }}
+                     expanded={expanded === item.department}
+                  >
                      <h3>{item.department}</h3>
                   </AccordionTitle>
                   {item.cities.map((city) => (
-                     <div key={city.cityName} className="accordion-content">
+                     <div
+                        key={city.cityName}
+                        className="accordion-content"
+                        style={{
+                           display:
+                              expanded === item.department ? 'block' : 'none',
+                        }}
+                     >
                         <h4>{city.cityName}</h4>
                         <ul>
                            {city.attractions.map((attraction) => (
