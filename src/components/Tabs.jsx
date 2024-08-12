@@ -13,7 +13,9 @@ function Tabs({ tabs }) {
                   <div
                      key={index}
                      onClick={() => setTab(index)}
-                     className="tab-title"
+                     className={`tab-title ${
+                        tab === index ? 'tab-title__active' : ''
+                     }`}
                      data-text={item.label}
                   >
                      {item.label}

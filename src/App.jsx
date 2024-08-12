@@ -7,10 +7,10 @@ import { Tabs } from './components/Tabs';
 
 function App() {
    const tabList = [
-      { label: 'Presidents By Party', content: <PresidentsByParty /> },
-      { label: 'Attractions By Departments', content: <AttractionsByDepas /> },
-      { label: 'Airports By Departments', content: <AirportsByDepas /> },
-      { label: 'Airports By Region', content: <AirportsByRegion /> },
+      { label: 'Presidents by Party', content: <PresidentsByParty /> },
+      { label: 'Attractions by Departments', content: <AttractionsByDepas /> },
+      { label: 'Airports by Departments', content: <AirportsByDepas /> },
+      { label: 'Airports by Region', content: <AirportsByRegion /> },
    ];
    return (
       <div className="App">
