@@ -92,7 +92,16 @@ function AttractionsByDepas() {
                      }}
                      expanded={expanded === item.department}
                   >
-                     <h3>{item.department}</h3>
+                     <h3>
+                        {item.department}
+                        {` (${
+                           item &&
+                           item.cities.reduce(
+                              (acc, city) => acc + city.count,
+                              0
+                           )
+                        })`}
+                     </h3>
                   </AccordionTitle>
                   {item.cities.map((city) => (
                      <div
@@ -104,6 +113,7 @@ function AttractionsByDepas() {
                         }}
                      >
                         <h4>{city.cityName}</h4>
+
                         <ul>
                            {city.attractions.map((attraction) => (
                               <li key={attraction.id} className="capitalized">

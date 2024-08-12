@@ -67,7 +67,6 @@ function PresidentsByParty() {
    return (
       <>
          <h2>Presidents by Political Party {`(${initialData.length})`} </h2>
-         {JSON.stringify(displayData)}
          {sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.party}>
@@ -78,7 +77,10 @@ function PresidentsByParty() {
                      }}
                      expanded={expanded === item.party}
                   >
-                     <h3 className="capitalized">{item.party}</h3>
+                     <h3 className="capitalized">
+                        {item.party}
+                        {` (${item.count})`}
+                     </h3>
                      <h3>Count</h3>
                   </AccordionTitle>
                   <ul

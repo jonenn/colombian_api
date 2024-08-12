@@ -143,6 +143,7 @@ function AirportsByRegion() {
                      expanded={expanded === item.region}
                   >
                      <h3>{item.region}</h3>
+                     {console.log(item)}
                   </AccordionTitle>
                   {item.departments.map((department) => (
                      <div

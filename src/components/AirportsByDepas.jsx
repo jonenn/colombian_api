@@ -49,7 +49,7 @@ function AirportsByDepas() {
    const displayData = (data) => {
       return Object.keys(data).map((departmentName) => ({
          department: departmentName,
-         departmentCount: data[departmentName].count,
+         count: data[departmentName].count,
          cities: Object.keys(data[departmentName].cities).map((cityName) => ({
             cityName,
             cityCount: data[departmentName].cities[cityName].count,
@@ -77,7 +77,10 @@ function AirportsByDepas() {
                      }}
                      expanded={expanded === item.region}
                   >
-                     <h3>{item.department}</h3>
+                     <h3>
+                        {item.department}
+                        {` (${item.count})`}
+                     </h3>
                   </AccordionTitle>
                   {item.cities.map((city) => (
                      <div
