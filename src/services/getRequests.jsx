@@ -70,4 +70,27 @@ const getAirports = async () => {
    }
 };
 
-export { getPresidents, getAttractions, getAttractionById, getAirports };
+const getRegionById = async (id) => {
+   try {
+      const response = await fetch(`${BASE_URL}/Region/${id}/`, {
+         method: 'GET',
+      });
+
+      if (!response.ok) {
+         throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+   } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+   }
+};
+
+export {
+   getPresidents,
+   getAttractions,
+   getAttractionById,
+   getAirports,
+   getRegionById,
+};
