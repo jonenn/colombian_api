@@ -17,8 +17,9 @@
 }
 
 .colombia-title {
-   font-weight: 500;
+   font-weight: 300;
    color: #254061;
+   font-size: 0.66rem;
 }
 
 .content-container {
@@ -26,6 +27,7 @@
    /* padding: 1.2rem 2.7rem; */
    display: flex;
    flex-direction: column;
+   color: #254061;
 }
 
 .capitalized {

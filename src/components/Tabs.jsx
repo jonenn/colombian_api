@@ -7,7 +7,7 @@ function Tabs({ tabs }) {
 
    return (
       <>
-         <div className="menu-container">
+         <div className="menu">
             {tabs.map((item, index) => {
                return (
                   <div
@@ -21,8 +21,9 @@ function Tabs({ tabs }) {
                );
             })}
          </div>
+         <hr className="separator" />
          {console.log(tab)}
-         <div>{tabs[tab] && tabs[tab].content}</div>
+         <div className="content">{tabs[tab] && tabs[tab].content}</div>
       </>
    );
 }

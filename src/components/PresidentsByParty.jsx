@@ -56,25 +56,27 @@ function PresidentsByParty() {
    };
 
    return (
-      <div>
+      <>
          <h2>Presidents by Political Party</h2>
-         {sortedData.length > 0 ? (
-            sortedData.map((item) => (
-               <div key={item.party}>
-                  <h3 className="capitalized">{item.party}</h3>
-                  <ul>
-                     {item.presidents.map((president) => (
-                        <li key={president.id}>
-                           {president.name} {president.lastName}
-                        </li>
-                     ))}
-                  </ul>
-               </div>
-            ))
-         ) : (
-            <p>Loading...</p>
-         )}
-      </div>
+         <div className="content--column">
+            {sortedData.length > 0 ? (
+               sortedData.map((item) => (
+                  <div key={item.party}>
+                     <h3 className="capitalized">{item.party}</h3>
+                     <ul>
+                        {item.presidents.map((president) => (
+                           <li key={president.id}>
+                              {president.name} {president.lastName}
+                           </li>
+                        ))}
+                     </ul>
+                  </div>
+               ))
+            ) : (
+               <p>Loading...</p>
+            )}
+         </div>
+      </>
    );
 }
 
