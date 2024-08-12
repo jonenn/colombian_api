@@ -15,7 +15,7 @@ function App() {
    return (
       <div className="App">
          <div className="title-container">
-            <h1>Colombia API Dashboard</h1>
+            <p className="colombia-title">Colombia API Dashboard</p>
          </div>
          <div className="content-container">
             <Tabs tabs={tabList} />

@@ -10,7 +10,12 @@ function Tabs({ tabs }) {
          <div className="menu-container">
             {tabs.map((item, index) => {
                return (
-                  <div key={index} onClick={() => setTab(index)}>
+                  <div
+                     key={index}
+                     onClick={() => setTab(index)}
+                     className="tab-title"
+                     data-text={item.label}
+                  >
                      {item.label}
                   </div>
                );
