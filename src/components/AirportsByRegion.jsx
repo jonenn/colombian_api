@@ -123,11 +123,11 @@ function AirportsByRegion() {
 
    return (
       <div>
-         <h1>Airports by Region</h1>
+         <h2>Airports by Region</h2>
          {displayData && displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.region}>
-                  <h2>{item.region}</h2>
+                  <h3>{item.region}</h3>
                   {item.departments.map((department) => (
                      <div key={department.department}>
                         <h3>{department.department}</h3>

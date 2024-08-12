@@ -1,3 +1,18 @@
+.App {
+   background-color: rgb(206, 222, 242, 0.6);
+   position: relative;
+   /* z-index: 1; */
+   margin-top: 6rem;
+   border-radius: 1.2rem;
+   width: 60vw;
+   backdrop-filter: blur(15px);
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+   font-weight: 800;
+}
+
 .capitalized {
    text-transform: capitalize;
 }

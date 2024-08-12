@@ -28,7 +28,7 @@ hr {
 
 /* Set a consistent font family */
 body {
-   font-family: sans-serif;
+   font-family: 'Lato', sans-serif;
    /* Used following property and value to check it was being used */
    /* background-color: red; */
 }

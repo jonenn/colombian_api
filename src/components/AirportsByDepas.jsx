@@ -58,11 +58,11 @@ function AirportsByDepas() {
 
    return (
       <div>
-         <h1>Airports by Department & City</h1>
+         <h2>Airports by Department & City</h2>
          {sortedData ? (
             sortedData.map((item) => (
                <div key={item.department}>
-                  <h2>{item.department}</h2>
+                  <h3>{item.department}</h3>
                   {item.cities.map((city) => (
                      <div key={city.cityName}>
                         <h3>{city.cityName}</h3>

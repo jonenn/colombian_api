@@ -14,6 +14,7 @@ function App() {
    ];
    return (
       <div className="App">
+         <h1>Colombia API Dashboard</h1>
          <Tabs tabs={tabList} />
       </div>
    );

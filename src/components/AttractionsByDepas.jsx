@@ -72,11 +72,11 @@ function AttractionsByDepas() {
 
    return (
       <div>
-         <h1>Attractions by Department & City</h1>
+         <h2>Attractions by Department & City</h2>
          {displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.department}>
-                  <h2>{item.department}</h2>
+                  <h3>{item.department}</h3>
                   {item.cities.map((city) => (
                      <div key={city.cityName}>
                         <h3>{city.cityName}</h3>

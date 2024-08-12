@@ -79,6 +79,8 @@ For the final one I need to add the region based on the id (since most are "null
 
 After all this I needed to make the tabular UI, which for me is where the magic happens because it's the moment when logic seems to mix with art. So I started creating another component for the logic that would handle every tab and its content. Once it was done, I had to fix some bugs that came with the modularization of components. But now every time you click on the label of each entity there'll be the data as it corresponds.
 
+Now that I'm fully immersed in CSS I needed to remake the hierarchy of the titles for them to be more intuitive.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start
