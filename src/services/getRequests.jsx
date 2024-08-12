@@ -38,7 +38,7 @@ const getAttractions = async () => {
 
 const getAttractionById = async (id) => {
    try {
-      const response = await fetch(`${BASE_URL}/Department${id}/`, {
+      const response = await fetch(`${BASE_URL}/Department/${id}/`, {
          method: 'GET',
       });
 

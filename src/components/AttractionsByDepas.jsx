@@ -2,8 +2,7 @@ import { getAttractionById, getAttractions } from '../services/getRequests';
 import { useEffect, useState } from 'react';
 
 function AttractionsByDepas() {
-   // const [sortedData, setSortedData] = useState(null);
-   const [allAttractions, setAllAttractions] = useState(null);
+   const [groupedData, setGroupedData] = useState({});
 
    useEffect(() => {
       getAllAttractions();
@@ -11,66 +10,90 @@ function AttractionsByDepas() {
 
    const getAllAttractions = async () => {
       try {
-         const response = await getAttractions();
-         console.log(response[0].city.departmentId);
-         setAllAttractions(response);
-         // displayData(response);
+         const attractions = await getAttractions();
+         const grouped = await groupByDepartment(attractions);
+         setGroupedData(grouped);
       } catch (error) {
-         console.log(error);
+         console.error('Error fetching attractions:', error);
       }
    };
 
    const getAnAttraction = async (id) => {
       try {
          const response = await getAttractionById(id);
-         console.log(response);
+         return response.name;
       } catch (error) {
-         console.log(error);
+         console.error('Error fetching department:', error);
+         return 'Unknown Department';
       }
    };
 
-   // const groupByParty = (data) => {
-   //    return data.reduce((acc, president) => {
-   //       const party = president.politicalParty.toLowerCase();
-   //       if (!acc[party]) {
-   //          acc[party] = [];
-   //       }
-   //       acc[party].push(president);
-   //       return acc;
-   //    }, {});
-   // };
+   const groupByDepartment = async (data) => {
+      const departmentMap = {};
 
-   // const countByParty = (data) => {
-   //    console.log(data);
-   //    return Object.keys(data).reduce((acc, party) => {
-   //       acc[party] = data[party].length;
-   //       return acc;
-   //    }, {});
-   // };
+      const promises = data.map(async (attraction) => {
+         const departmentId = attraction.city.departmentId;
+         const cityName = attraction.city.name;
+         const departmentName = await getAnAttraction(departmentId);
 
-   // const sortByCount = (groupedData, countedData) => {
-   //    console.log(groupedData);
-   //    console.log(countedData);
-   //    return Object.keys(groupedData)
-   //       .map((party) => ({
-   //          party,
-   //          count: countedData[party],
-   //          presidents: groupedData[party],
-   //       }))
-   //       .sort((a, b) => b.count - a.count);
-   // };
+         if (!departmentMap[departmentName]) {
+            departmentMap[departmentName] = { cities: {} };
+         }
 
-   // const displayData = (data) => {
-   //    const grouping = groupByParty(data);
-   //    const counting = countByParty(grouping);
-   //    const sorting = sortByCount(grouping, counting);
-   //    setSortedData(sorting);
-   // };
+         if (!departmentMap[departmentName].cities[cityName]) {
+            departmentMap[departmentName].cities[cityName] = {
+               attractions: [],
+               count: 0,
+            };
+         }
+
+         departmentMap[departmentName].cities[cityName].attractions.push(
+            attraction
+         );
+         departmentMap[departmentName].cities[cityName].count += 1;
+      });
+
+      await Promise.all(promises);
+
+      return departmentMap;
+   };
+
+   const displayData = (data) => {
+      return Object.keys(data).map((department) => ({
+         department,
+         cities: Object.keys(data[department].cities).map((cityName) => ({
+            cityName,
+            ...data[department].cities[cityName],
+         })),
+      }));
+   };
+
+   const sortedData = groupedData ? displayData(groupedData) : [];
 
    return (
       <div>
          <h1>Attractions by Department & City</h1>
-         {allAttractions ? JSON.stringify(allAttractions) : <p>Loading...</p>}
+         {sortedData ? (
+            sortedData.map((item) => (
+               <div key={item.department}>
+                  <h2>{item.department}</h2>
+                  {item.cities.map((city) => (
+                     <div key={city.cityName}>
+                        <h3>{city.cityName}</h3>
+                        <ul>
+                           {city.attractions.map((attraction) => (
+                              <li key={attraction.id} className="capitalized">
+                                 {attraction.name}
+                              </li>
+                           ))}
+                        </ul>
+                     </div>
+                  ))}
+               </div>
+            ))
+         ) : (
+            <p>Loading...</p>
+         )}
       </div>
    );
 }

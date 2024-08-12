@@ -61,7 +61,7 @@ function PresidentsByParty() {
          {sortedData ? (
             sortedData.map((item) => (
                <div key={item.party}>
-                  <h2 className="party-title">{item.party}</h2>
+                  <h2 className="capitalized">{item.party}</h2>
                   <ul>
                      {item.presidents.map((president) => (
                         <li key={president.id}>
