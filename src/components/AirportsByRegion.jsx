@@ -1,5 +1,5 @@
 import { getAirports, getRegionById } from '../services/getRequests';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 function AirportsByRegion() {
    const [groupedData, setGroupedData] = useState({});
@@ -11,9 +11,9 @@ function AirportsByRegion() {
    const getAllAirports = async () => {
       try {
          const response = await getAirports();
-         // const grouped = await groupByRegion(response);
-         // setGroupedData(grouped);
-         // console.log(grouped);
+         const grouped = await groupByRegion(response);
+         setGroupedData(grouped);
+         console.log(grouped);
       } catch (error) {
          console.error('Error fetching airports:', error);
       }
@@ -24,73 +24,143 @@ function AirportsByRegion() {
          const response = await getRegionById(id);
          return response.name;
       } catch (error) {
-         console.error('Error fetching department:', error);
-         return 'Unknown Department';
+         console.error('Error fetching region:', error);
+         return 'Unknown Region';
       }
    };
 
-   // const groupByRegion = (data) => {
-   //    return data.reduce((acc, airport) => {
-   //       const departmentName = airport.department.name;
-   //       const cityName = airport.city.name;
+   const groupByRegion = async (data) => {
+      const regionMap = {};
 
-   //       if (!acc[departmentName]) {
-   //          acc[departmentName] = { cities: {}, count: 0 };
-   //       }
+      const promises = data.map(async (airport) => {
+         const { department, city, type } = airport;
+         const departmentName = department?.name;
+         const regionId = department?.regionId;
+         const cityName = city?.name;
+         const regionName = await getARegion(regionId);
 
-   //       if (!acc[departmentName].cities[cityName]) {
-   //          acc[departmentName].cities[cityName] = {
-   //             airports: [],
-   //             count: 0,
-   //          };
-   //       }
+         if (!regionMap[regionName]) {
+            regionMap[regionName] = { departments: {} };
+         }
 
-   //       acc[departmentName].cities[cityName].airports.push(airport);
-   //       acc[departmentName].cities[cityName].count += 1;
-   //       acc[departmentName].count += 1;
+         if (!regionMap[regionName].departments[departmentName]) {
+            regionMap[regionName].departments[departmentName] = { cities: {} };
+         }
 
-   //       return acc;
-   //    }, {});
-   // };
+         if (
+            !regionMap[regionName].departments[departmentName].cities[cityName]
+         ) {
+            regionMap[regionName].departments[departmentName].cities[cityName] =
+               {
+                  types: {},
+               };
+         }
 
-   // const displayData = (data) => {
-   //    return Object.keys(data).map((departmentName) => ({
-   //       department: departmentName,
-   //       departmentCount: data[departmentName].count,
-   //       cities: Object.keys(data[departmentName].cities).map((cityName) => ({
-   //          cityName,
-   //          cityCount: data[departmentName].cities[cityName].count,
-   //          airports: data[departmentName].cities[cityName].airports,
-   //       })),
-   //    }));
-   // };
+         if (
+            !regionMap[regionName].departments[departmentName].cities[cityName]
+               .types[type]
+         ) {
+            regionMap[regionName].departments[departmentName].cities[
+               cityName
+            ].types[type] = {
+               airports: [],
+               count: 0,
+            };
+         }
 
-   // const sortedData = groupedData && displayData(groupedData);
+         const typeData =
+            regionMap[regionName].departments[departmentName].cities[cityName]
+               .types[type];
+         typeData.airports.push(airport);
+         typeData.count += 1;
+      });
+
+      await Promise.all(promises);
+
+      return regionMap;
+   };
+
+   const displayData = useMemo(() => {
+      return Object.keys(groupedData).map((region) => {
+         const departments = Object.keys(groupedData[region].departments).map(
+            (department) => {
+               const cities = Object.keys(
+                  groupedData[region].departments[department].cities
+               ).map((city) => {
+                  const types = Object.keys(
+                     groupedData[region].departments[department].cities[city]
+                        .types
+                  ).map((type) => {
+                     const typeData =
+                        groupedData[region].departments[department].cities[city]
+                           .types[type];
+                     return {
+                        type,
+                        airports: typeData.airports,
+                        count: typeData.count,
+                     };
+                  });
+
+                  return {
+                     city,
+                     types,
+                  };
+               });
+
+               return {
+                  department,
+                  cities,
+               };
+            }
+         );
+
+         return {
+            region,
+            departments,
+         };
+      });
+   }, [groupedData]);
 
    return (
       <div>
-         {/* <h1>Airports by Region</h1>
-         {sortedData ? (
-            sortedData.map((item) => (
-               <div key={item.department}>
-                  <h2>{item.department}</h2>
-                  {item.cities.map((city) => (
-                     <div key={city.cityName}>
-                        <h3>{city.cityName}</h3>
-                        <ul>
-                           {city.airports.map((attraction) => (
-                              <li key={attraction.id} className="capitalized">
-                                 {attraction.name}
-                              </li>
-                           ))}
-                        </ul>
+         <h1>Airports by Region</h1>
+         {displayData && displayData.length > 0 ? (
+            displayData.map((item) => (
+               <div key={item.region}>
+                  <h2>{item.region}</h2>
+                  {item.departments.map((department) => (
+                     <div key={department.department}>
+                        <h3>{department.department}</h3>
+                        {department.cities.map((city) => (
+                           <div key={city.city}>
+                              <h4>{city.city}</h4>
+                              <ul>
+                                 {city.types.map((type) => (
+                                    <li key={type.type}>
+                                       <strong>Type:</strong> {type.type} <br />
+                                       <strong>Count:</strong> {type.count}
+                                       <ul>
+                                          {type.airports.map((airport) => (
+                                             <li
+                                                key={airport.id}
+                                                className="capitalized"
+                                             >
+                                                {airport.name}
+                                             </li>
+                                          ))}
+                                       </ul>
+                                    </li>
+                                 ))}
+                              </ul>
+                           </div>
+                        ))}
                      </div>
                   ))}
                </div>
             ))
          ) : (
             <p>Loading...</p>
-         )} */}
+         )}
       </div>
    );
 }

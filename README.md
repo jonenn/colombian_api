@@ -75,7 +75,7 @@ Once I passed this to a component I copied the file and started consuming the en
 
 The third exercise (2.c) seemed to be a bit of the same as in the second, but that is going to substantially depend on the way the API is structuring data for airports. For this one I recycled some code from PresidentsByParty, it had to do with the groupByParty function, at the end it was a mixture from both the first and second components.
 
-For the final one I need to add the region based on the id (since most are "null") and also the type to the component mentioned in the preceding paragraph. So I'm going to duplicate that file and use it as foundation too.
+For the final one I need to add the region based on the id (since most are "null") and also the type to the component mentioned in the preceding paragraph. So I'm going to duplicate that file and use it as foundation too. This exercise (2.d) was a mixture of all the others. Here I used useMemo to prevent unnecessary re-renders and for optimization. Here's something I really want to highlight **and is the fact that as the API doesn't bring the actual data for Region Names (in Airport) and Department Name (in Attraction) but the API only bring their IDs I had to make two requests to fulfill that data and for the sake of the UX something that shows up as a time consuming operation.** It means that with a proper API the times could be way way better. **I highly recommend** to use the build for production since in the dev server React usually executes extra calls of a render function as well as effect hooks in StrictMode.
 
 ### Documentation
 

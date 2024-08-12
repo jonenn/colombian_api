@@ -1,5 +1,5 @@
 import { getAttractionById, getAttractions } from '../services/getRequests';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 function AttractionsByDepas() {
    const [groupedData, setGroupedData] = useState({});
@@ -58,22 +58,24 @@ function AttractionsByDepas() {
       return departmentMap;
    };
 
-   const displayData = (data) => {
-      return Object.keys(data).map((department) => ({
+   const displayData = useMemo(() => {
+      return Object.keys(groupedData).map((department) => ({
          department,
-         cities: Object.keys(data[department].cities).map((cityName) => ({
-            cityName,
-            ...data[department].cities[cityName],
-         })),
+         cities: Object.keys(groupedData[department].cities).map(
+            (cityName) => ({
+               cityName,
+               ...groupedData[department].cities[cityName],
+            })
+         ),
       }));
-   };
+   }, [groupedData]);
 
    const sortedData = groupedData && displayData(groupedData);
 
    return (
       <div>
          <h1>Attractions by Department & City</h1>
-         {sortedData ? (
+         {sortedData && sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.department}>
                   <h2>{item.department}</h2>
