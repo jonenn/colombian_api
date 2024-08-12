@@ -3,7 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { AccordionTitle } from './AccordionTitle';
 
 function AttractionsByDepas() {
-   const [groupedData, setGroupedData] = useState({});
+   const [groupedData, setGroupedData] = useState([]);
+   const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
@@ -13,6 +14,7 @@ function AttractionsByDepas() {
    const getAllAttractions = async () => {
       try {
          const response = await getAttractions();
+         setInitialData(response);
          const grouped = await groupByDepartment(response);
          setGroupedData(grouped);
       } catch (error) {
@@ -78,7 +80,7 @@ function AttractionsByDepas() {
 
    return (
       <div>
-         <h2>Attractions by Department & City</h2>
+         <h2>Attractions by Department & City {`(${initialData.length})`}</h2>
          {displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.department}>

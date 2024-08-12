@@ -4,7 +4,8 @@ import '../styles/AccordionTitle.css';
 import { AccordionTitle } from './AccordionTitle';
 
 function PresidentsByParty() {
-   const [sortedData, setSortedData] = useState({});
+   const [sortedData, setSortedData] = useState([]);
+   const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
@@ -15,6 +16,7 @@ function PresidentsByParty() {
       try {
          const response = await getPresidents();
          displayData(response);
+         setInitialData(response);
       } catch (error) {
          console.error('Error fetching presidents:', error);
       }
@@ -64,7 +66,8 @@ function PresidentsByParty() {
 
    return (
       <>
-         <h2>Presidents by Political Party</h2>
+         <h2>Presidents by Political Party {`(${initialData.length})`} </h2>
+         {JSON.stringify(displayData)}
          {sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.party}>

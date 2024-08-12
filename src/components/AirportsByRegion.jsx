@@ -3,7 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { AccordionTitle } from './AccordionTitle';
 
 function AirportsByRegion() {
-   const [groupedData, setGroupedData] = useState({});
+   const [groupedData, setGroupedData] = useState([]);
+   const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
@@ -13,6 +14,7 @@ function AirportsByRegion() {
    const getAllAirports = async () => {
       try {
          const response = await getAirports();
+         setInitialData(response);
          const grouped = await groupByRegion(response);
          setGroupedData(grouped);
          console.log(grouped);
@@ -129,7 +131,7 @@ function AirportsByRegion() {
 
    return (
       <div>
-         <h2>Airports by Region</h2>
+         <h2>Airports by Region {`(${initialData.length})`}</h2>
          {displayData && displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.region}>
