@@ -53,4 +53,21 @@ const getAttractionById = async (id) => {
    }
 };
 
-export { getPresidents, getAttractions, getAttractionById };
+const getAirports = async () => {
+   try {
+      const response = await fetch(`${BASE_URL}/Airport/`, {
+         method: 'GET',
+      });
+
+      if (!response.ok) {
+         throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+   } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+   }
+};
+
+export { getPresidents, getAttractions, getAttractionById, getAirports };

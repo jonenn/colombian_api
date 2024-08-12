@@ -1,0 +1,92 @@
+import { getAirports } from '../services/getRequests';
+import { useEffect, useState } from 'react';
+
+function AirportsByDepas() {
+   const [groupedData, setGroupedData] = useState({});
+
+   useEffect(() => {
+      getAllAirports();
+   }, []);
+
+   const getAllAirports = async () => {
+      try {
+         const response = await getAirports();
+         const grouped = await groupByDepartment(response);
+         setGroupedData(grouped);
+      } catch (error) {
+         console.error('Error fetching attractions:', error);
+      }
+   };
+
+   // const groupByDepartment = async (data) => {
+   //    const departmentMap = {};
+
+   //    const promises = data.map(async (attraction) => {
+   //       const departmentId = attraction.city.departmentId;
+   //       const cityName = attraction.city.name;
+   //       const departmentName = await getAnAttraction(departmentId);
+
+   //       if (!departmentMap[departmentName]) {
+   //          departmentMap[departmentName] = { cities: {} };
+   //       }
+
+   //       if (!departmentMap[departmentName].cities[cityName]) {
+   //          departmentMap[departmentName].cities[cityName] = {
+   //             attractions: [],
+   //             count: 0,
+   //          };
+   //       }
+
+   //       departmentMap[departmentName].cities[cityName].attractions.push(
+   //          attraction
+   //       );
+   //       departmentMap[departmentName].cities[cityName].count += 1;
+   //    });
+
+   //    await Promise.all(promises);
+
+   //    return departmentMap;
+   // };
+
+   // const displayData = (data) => {
+   //    return Object.keys(data).map((department) => ({
+   //       department,
+   //       cities: Object.keys(data[department].cities).map((cityName) => ({
+   //          cityName,
+   //          ...data[department].cities[cityName],
+   //       })),
+   //    }));
+   // };
+
+   // const sortedData = groupedData ? displayData(groupedData) : [];
+
+   return (
+      // <div>
+      //    <h1>Airports by Department & City</h1>
+      //    {sortedData ? (
+      //       sortedData.map((item) => (
+      //          <div key={item.department}>
+      //             <h2>{item.department}</h2>
+      //             {item.cities.map((city) => (
+      //                <div key={city.cityName}>
+      //                   <h3>{city.cityName}</h3>
+      //                   <ul>
+      //                      {city.attractions.map((attraction) => (
+      //                         <li key={attraction.id} className="capitalized">
+      //                            {attraction.name}
+      //                         </li>
+      //                      ))}
+      //                   </ul>
+      //                </div>
+      //             ))}
+      //          </div>
+      //       ))
+      //    ) : (
+      //       <p>Loading...</p>
+      //    )}
+      // </div>
+      <></>
+   );
+}
+
+export { AirportsByDepas };

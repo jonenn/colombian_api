@@ -10,8 +10,8 @@ function AttractionsByDepas() {
 
    const getAllAttractions = async () => {
       try {
-         const attractions = await getAttractions();
-         const grouped = await groupByDepartment(attractions);
+         const response = await getAttractions();
+         const grouped = await groupByDepartment(response);
          setGroupedData(grouped);
       } catch (error) {
          console.error('Error fetching attractions:', error);

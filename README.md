@@ -71,7 +71,9 @@ The missing function here was the one that was going to make use of the rest and
 
 I was finished with the first task (2.a), so I realized the following ones would be probably a copy of what was already working for the presidents with some variations, so I needed this to be in its own component for presidents so the code would be cleaner.
 
-Once I passed this to a component I copied the file and started consuming the endpoint for touristic attraction (2.b), then I repeated some of the process: I created the second service. Then I saw that some of the touristic attractions had null as department but still had its id, so I created a service to get the department by the id.
+Once I passed this to a component I copied the file and started consuming the endpoint for touristic attraction (2.b), then I repeated some of the process: I created the second service, duplicated the file and made changes as needed. Then I saw that most of the touristic attractions had "null" as department but still had its id, so I decided to created a service to get the department by the id and now we have the actual depas' names.
+
+The third exercise (2.c) seemed to be a bit of the same as in the second, but that is going to substantially depend on the way the API is structuring data for airports.
 
 ### Documentation
 
