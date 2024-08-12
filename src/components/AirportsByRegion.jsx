@@ -57,6 +57,7 @@ function AirportsByRegion() {
             regionMap[regionName].departments[departmentName].cities[cityName] =
                {
                   types: {},
+                  count: 0,
                };
          }
 
@@ -67,7 +68,6 @@ function AirportsByRegion() {
             regionMap[regionName].departments[departmentName].cities[
                cityName
             ].types[type] = {
-               airports: [],
                count: 0,
             };
          }
@@ -75,8 +75,12 @@ function AirportsByRegion() {
          const typeData =
             regionMap[regionName].departments[departmentName].cities[cityName]
                .types[type];
-         typeData.airports.push(airport);
          typeData.count += 1;
+         regionMap[regionName].departments[departmentName].cities[
+            cityName
+         ].count += 1;
+         regionMap[regionName].departments[departmentName].count =
+            (regionMap[regionName].departments[departmentName].count || 0) + 1;
       });
 
       await Promise.all(promises);
@@ -100,19 +104,22 @@ function AirportsByRegion() {
                            .types[type];
                      return {
                         type,
-                        airports: typeData.airports,
                         count: typeData.count,
                      };
                   });
 
                   return {
                      city,
+                     count: groupedData[region].departments[department].cities[
+                        city
+                     ].count,
                      types,
                   };
                });
 
                return {
                   department,
+                  count: groupedData[region].departments[department].count,
                   cities,
                };
             }
@@ -142,8 +149,13 @@ function AirportsByRegion() {
                      }}
                      expanded={expanded === item.region}
                   >
-                     <h3>{item.region}</h3>
-                     {console.log(item)}
+                     <h3>
+                        {item.region}
+                        {` (${Object.values(item.departments).reduce(
+                           (acc, dept) => acc + dept.count,
+                           0
+                        )})`}
+                     </h3>
                   </AccordionTitle>
                   {item.departments.map((department) => (
                      <div
@@ -162,16 +174,6 @@ function AirportsByRegion() {
                                     <li key={type.type}>
                                        <strong>Type:</strong> {type.type} <br />
                                        <strong>Count:</strong> {type.count}
-                                       <ul>
-                                          {type.airports.map((airport) => (
-                                             <li
-                                                key={airport.id}
-                                                className="capitalized"
-                                             >
-                                                {airport.name}
-                                             </li>
-                                          ))}
-                                       </ul>
                                     </li>
                                  ))}
                               </ul>
