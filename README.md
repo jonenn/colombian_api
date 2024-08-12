@@ -75,6 +75,8 @@ Once I passed this to a component I copied the file and started consuming the en
 
 The third exercise (2.c) seemed to be a bit of the same as in the second, but that is going to substantially depend on the way the API is structuring data for airports. For this one I recycled some code from PresidentsByParty, it had to do with the groupByParty function, at the end it was a mixture from both the first and second components.
 
+For the final one I need to add the region based on the id (since most are "null") and also the type to the component mentioned in the preceding paragraph. So I'm going to duplicate that file and use it as foundation too.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start

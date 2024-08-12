@@ -2,7 +2,7 @@ import { getPresidents } from '../services/getRequests';
 import { useEffect, useState } from 'react';
 
 function PresidentsByParty() {
-   const [sortedData, setSortedData] = useState(null);
+   const [sortedData, setSortedData] = useState({});
 
    useEffect(() => {
       getAllPresidents();
