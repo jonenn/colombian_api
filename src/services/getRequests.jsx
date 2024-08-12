@@ -19,4 +19,38 @@ const getPresidents = async () => {
    }
 };
 
-export { getPresidents };
+const getAttractions = async () => {
+   try {
+      const response = await fetch(`${BASE_URL}/TouristicAttraction/`, {
+         method: 'GET',
+      });
+
+      if (!response.ok) {
+         throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+   } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+   }
+};
+
+const getAttractionById = async (id) => {
+   try {
+      const response = await fetch(`${BASE_URL}/Department${id}/`, {
+         method: 'GET',
+      });
+
+      if (!response.ok) {
+         throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+   } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+   }
+};
+
+export { getPresidents, getAttractions, getAttractionById };

@@ -11,8 +11,7 @@ function PresidentsByParty() {
    const getAllPresidents = async () => {
       try {
          const response = await getPresidents();
-         //  setAllPresidents(response);
-         sortByParty(response);
+         displayData(response);
       } catch (error) {
          console.log(error);
       }
@@ -30,7 +29,7 @@ function PresidentsByParty() {
    };
 
    const countByParty = (data) => {
-      // console.log(data);
+      console.log(data);
       return Object.keys(data).reduce((acc, party) => {
          acc[party] = data[party].length;
          return acc;
@@ -49,7 +48,7 @@ function PresidentsByParty() {
          .sort((a, b) => b.count - a.count);
    };
 
-   const sortByParty = (data) => {
+   const displayData = (data) => {
       const grouping = groupByParty(data);
       const counting = countByParty(grouping);
       const sorting = sortByCount(grouping, counting);

@@ -65,6 +65,14 @@ Once the initial setup was done I started reading the documentation for the API,
 
 The next thing after consuming the API and making sure the service created (getPresidents) was fetching the data correctly, I needed to sort each president by their political party, so I did know I needed an accumulator which meant using reduce (an array method). Then I realized there was this differentiation between a capitalized party so I made some changes so they would be the same when classified.
 
+Once I had the reduce method working for grouping the presidents, I started working on the next two functions which were firstly the one that accumulated the accounting for each party, which was essentially taking the length of every value from each political party. And finally a general function for having in a block the rest of them so they could be executed in the useEffect.
+
+The missing function here was the one that was going to make use of the rest and would gives the sorted data to be displayed according to what was expected and done with the other three functions. I was testing each function worked so I used a state to test each one of them and see the returning value but at the end I ended up using just the final state of the sorted data.
+
+I was finished with the first task (2.a), so I realized the following ones would be probably a copy of what was already working for the presidents with some variations, so I needed this to be in its own component for presidents so the code would be cleaner.
+
+Once I passed this to a component I copied the file and started consuming the endpoint for touristic attraction (2.b), then I repeated some of the process: I created the second service. Then I saw that some of the touristic attractions had null as department but still had its id, so I created a service to get the department by the id.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start
