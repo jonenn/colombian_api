@@ -70,13 +70,11 @@ function AttractionsByDepas() {
       }));
    }, [groupedData]);
 
-   const sortedData = groupedData && displayData(groupedData);
-
    return (
       <div>
          <h1>Attractions by Department & City</h1>
-         {sortedData && sortedData.length > 0 ? (
-            sortedData.map((item) => (
+         {displayData.length > 0 ? (
+            displayData.map((item) => (
                <div key={item.department}>
                   <h2>{item.department}</h2>
                   {item.cities.map((city) => (

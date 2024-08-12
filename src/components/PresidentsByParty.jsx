@@ -58,7 +58,7 @@ function PresidentsByParty() {
    return (
       <div>
          <h1>Presidents by Political Party</h1>
-         {sortedData ? (
+         {sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.party}>
                   <h2 className="capitalized">{item.party}</h2>

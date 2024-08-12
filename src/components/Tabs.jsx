@@ -9,11 +9,12 @@ function Tabs({ tabs }) {
          {tabs.map((item, index) => {
             return (
                <div key={index} onClick={() => setTab(index)}>
-                  {tab}
                   {item.label}
                </div>
             );
          })}
+         {console.log(tab)}
+         <div>{tabs[tab] && tabs[tab].content}</div>
       </div>
    );
 }

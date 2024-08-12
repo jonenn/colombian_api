@@ -77,7 +77,7 @@ The third exercise (2.c) seemed to be a bit of the same as in the second, but th
 
 For the final one I need to add the region based on the id (since most are "null") and also the type to the component mentioned in the preceding paragraph. So I'm going to duplicate that file and use it as foundation too. This exercise (2.d) was a mixture of all the others. Here I used useMemo to prevent unnecessary re-renders and for optimization. Here's something I really want to highlight **and is the fact that as the API doesn't bring the actual data for Region Names (in Airport) and Department Name (in Attraction) but the API only bring their IDs I had to make more than one request to fulfill that data and for the sake of the UI in detriment of the UX something that shows up as a time consuming operation.** I highly recommend to use the build for production since in the dev server React usually executes extra calls of a render function as well as effect hooks in StrictMode.
 
-After all this I needed to make the tabular UI, which for me is where the magic happens because it's the moment when logic seems to mix with art. So I started creating another component for the logic that would handle every tab and its content.
+After all this I needed to make the tabular UI, which for me is where the magic happens because it's the moment when logic seems to mix with art. So I started creating another component for the logic that would handle every tab and its content. Once it was done, I had to fix some bugs that came with the modularization of components. But now every time you click on the label of each entity there'll be the data as it corresponds.
 
 ### Documentation
 

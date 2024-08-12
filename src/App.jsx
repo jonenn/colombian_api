@@ -9,8 +9,8 @@ function App() {
    const tabList = [
       { label: 'Presidents By Party', content: <PresidentsByParty /> },
       { label: 'Attractions By Departments', content: <AttractionsByDepas /> },
-      { label: 'Presidents By Party', content: <AirportsByDepas /> },
-      { label: 'Presidents By Party', content: <AirportsByRegion /> },
+      { label: 'Airports By Departments', content: <AirportsByDepas /> },
+      { label: 'Airports By Region', content: <AirportsByRegion /> },
    ];
    return (
       <div className="App">
