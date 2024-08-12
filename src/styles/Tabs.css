@@ -1,0 +1,7 @@
+.menu-container {
+   display: flex;
+   padding: 0.6rem var(--general-padding);
+   gap: 1.2rem;
+   background-color: blue;
+   width: 100%;
+}
