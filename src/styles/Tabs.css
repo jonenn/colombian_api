@@ -28,6 +28,10 @@
    color: black;
 }
 
+.tab-title:hover {
+   color: whitesmoke;
+}
+
 .tab-title__active {
    position: relative;
    border-radius: 0.66rem 0.66rem 0 0;
