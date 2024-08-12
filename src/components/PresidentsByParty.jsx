@@ -1,5 +1,7 @@
 import { getPresidents } from '../services/getRequests';
 import { useEffect, useState } from 'react';
+import '../styles/Accordion.css';
+import { AccordionTitle } from './AccordionTitle';
 
 function PresidentsByParty() {
    const [sortedData, setSortedData] = useState({});
@@ -58,24 +60,25 @@ function PresidentsByParty() {
    return (
       <>
          <h2>Presidents by Political Party</h2>
-         <div className="content--column">
-            {sortedData.length > 0 ? (
-               sortedData.map((item) => (
-                  <div key={item.party}>
+         {sortedData.length > 0 ? (
+            sortedData.map((item) => (
+               <div key={item.party}>
+                  <AccordionTitle>
                      <h3 className="capitalized">{item.party}</h3>
-                     <ul>
-                        {item.presidents.map((president) => (
-                           <li key={president.id}>
-                              {president.name} {president.lastName}
-                           </li>
-                        ))}
-                     </ul>
-                  </div>
-               ))
-            ) : (
-               <p>Loading...</p>
-            )}
-         </div>
+                     <h3>Count</h3>
+                  </AccordionTitle>
+                  <ul className="accordion-content">
+                     {item.presidents.map((president) => (
+                        <li key={president.id}>
+                           {president.name} {president.lastName}
+                        </li>
+                     ))}
+                  </ul>
+               </div>
+            ))
+         ) : (
+            <p>Loading...</p>
+         )}
       </>
    );
 }

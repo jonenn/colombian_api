@@ -1,5 +1,6 @@
 import { getAirports } from '../services/getRequests';
 import { useEffect, useState } from 'react';
+import { AccordionTitle } from './AccordionTitle';
 
 function AirportsByDepas() {
    const [groupedData, setGroupedData] = useState({});
@@ -62,11 +63,13 @@ function AirportsByDepas() {
          {sortedData ? (
             sortedData.map((item) => (
                <div key={item.department}>
-                  <h3>{item.department}</h3>
+                  <AccordionTitle>
+                     <h3>{item.department}</h3>
+                  </AccordionTitle>
                   {item.cities.map((city) => (
                      <div key={city.cityName}>
-                        <h3>{city.cityName}</h3>
-                        <ul>
+                        <h4>{city.cityName}</h4>
+                        <ul className="accordion-content">
                            {city.airports.map((attraction) => (
                               <li key={attraction.id} className="capitalized">
                                  {attraction.name}

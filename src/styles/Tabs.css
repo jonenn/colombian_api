@@ -53,8 +53,3 @@
 h2 {
    padding-bottom: 0.9rem;
 }
-
-.content--column {
-   column-count: 2;
-   column-gap: 0.6rem;
-}

@@ -79,7 +79,7 @@ For the final one I need to add the region based on the id (since most are "null
 
 After all this I needed to make the tabular UI, which for me is where the magic happens because it's the moment when logic seems to mix with art. So I started creating another component for the logic that would handle every tab and its content. Once it was done, I had to fix some bugs that came with the modularization of components. But now every time you click on the label of each entity there'll be the data as it corresponds.
 
-Now that I'm fully immersed in CSS I needed to remake the hierarchy of the titles for them to be more intuitive. I wanted to get an image of a snowy forest to match the color palette I've chosen for the background.I started using CSS variables so I could keep the same padding along the whole project.
+Now that I'm fully immersed in CSS I needed to remake the hierarchy of the titles for them to be more intuitive. I wanted to get an image of a snowy forest to match the color palette I've chosen for the background.I started using CSS variables so I could keep the same padding along the whole project. I created some columns for displaying the whole info in a better way, but as I needed it to be displayed as a table I had to get rid of that.
 
 ### Documentation
 

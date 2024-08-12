@@ -1,5 +1,6 @@
 import { getAttractionById, getAttractions } from '../services/getRequests';
 import { useEffect, useMemo, useState } from 'react';
+import { AccordionTitle } from './AccordionTitle';
 
 function AttractionsByDepas() {
    const [groupedData, setGroupedData] = useState({});
@@ -76,11 +77,13 @@ function AttractionsByDepas() {
          {displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.department}>
-                  <h3>{item.department}</h3>
+                  <AccordionTitle>
+                     <h3>{item.department}</h3>
+                  </AccordionTitle>
                   {item.cities.map((city) => (
                      <div key={city.cityName}>
-                        <h3>{city.cityName}</h3>
-                        <ul>
+                        <h4>{city.cityName}</h4>
+                        <ul className="accordion-content">
                            {city.attractions.map((attraction) => (
                               <li key={attraction.id} className="capitalized">
                                  {attraction.name}

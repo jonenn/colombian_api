@@ -2,7 +2,9 @@
    background-color: rgb(222, 236, 252, 0.6);
    position: relative;
    /* z-index: 1; */
+   padding-bottom: 3rem;
    margin-top: 6rem;
+   margin-bottom: 3rem;
    border-radius: 1.2rem;
    width: 63vw;
    min-height: min-content;
@@ -32,4 +34,16 @@
 
 .capitalized {
    text-transform: capitalize;
+}
+
+.accordion-content {
+   background-color: rgba(167, 197, 207, 0.12);
+   padding-top: 0.6rem;
+   padding-bottom: 1.5rem;
+   border-radius: 0 0 0.6rem 0.6rem;
+}
+
+li {
+   margin-left: 4.5rem;
+   margin-top: 0.3rem;
 }

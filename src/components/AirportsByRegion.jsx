@@ -1,5 +1,6 @@
 import { getAirports, getRegionById } from '../services/getRequests';
 import { useEffect, useMemo, useState } from 'react';
+import { AccordionTitle } from './AccordionTitle';
 
 function AirportsByRegion() {
    const [groupedData, setGroupedData] = useState({});
@@ -127,14 +128,16 @@ function AirportsByRegion() {
          {displayData && displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.region}>
-                  <h3>{item.region}</h3>
+                  <AccordionTitle>
+                     <h3>{item.region}</h3>
+                  </AccordionTitle>
                   {item.departments.map((department) => (
                      <div key={department.department}>
-                        <h3>{department.department}</h3>
+                        <h4>{department.department}</h4>
                         {department.cities.map((city) => (
                            <div key={city.city}>
-                              <h4>{city.city}</h4>
-                              <ul>
+                              <h5>{city.city}</h5>
+                              <ul className="accordion-content">
                                  {city.types.map((type) => (
                                     <li key={type.type}>
                                        <strong>Type:</strong> {type.type} <br />
