@@ -43,6 +43,11 @@
    border-radius: 0 0 0.6rem 0.6rem;
 }
 
+.accordion-content__active {
+   border-radius: 0.6rem;
+   background-color: red;
+}
+
 li {
    margin-left: 4.5rem;
    margin-top: 0.3rem;

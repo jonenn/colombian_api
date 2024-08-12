@@ -1,10 +1,11 @@
 import { getPresidents } from '../services/getRequests';
 import { useEffect, useState } from 'react';
-import '../styles/Accordion.css';
+import '../styles/AccordionTitle.css';
 import { AccordionTitle } from './AccordionTitle';
 
 function PresidentsByParty() {
    const [sortedData, setSortedData] = useState({});
+   const [expanded, setExpanded] = useState(null);
 
    useEffect(() => {
       getAllPresidents();
@@ -57,17 +58,32 @@ function PresidentsByParty() {
       setSortedData(sorting);
    };
 
+   const toggleAccordion = (party) => {
+      setExpanded(expanded === party ? null : party);
+   };
+
    return (
       <>
          <h2>Presidents by Political Party</h2>
          {sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.party}>
-                  <AccordionTitle>
+                  <AccordionTitle
+                     onClick={() => toggleAccordion(item.party)}
+                     style={{
+                        borderRadius: expanded === item.party ? '' : '.3rem',
+                     }}
+                     expanded={expanded === item.party}
+                  >
                      <h3 className="capitalized">{item.party}</h3>
                      <h3>Count</h3>
                   </AccordionTitle>
-                  <ul className="accordion-content">
+                  <ul
+                     className="accordion-content"
+                     style={{
+                        display: expanded === item.party ? 'block' : 'none',
+                     }}
+                  >
                      {item.presidents.map((president) => (
                         <li key={president.id}>
                            {president.name} {president.lastName}

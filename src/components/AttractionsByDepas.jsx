@@ -81,9 +81,9 @@ function AttractionsByDepas() {
                      <h3>{item.department}</h3>
                   </AccordionTitle>
                   {item.cities.map((city) => (
-                     <div key={city.cityName}>
+                     <div key={city.cityName} className="accordion-content">
                         <h4>{city.cityName}</h4>
-                        <ul className="accordion-content">
+                        <ul>
                            {city.attractions.map((attraction) => (
                               <li key={attraction.id} className="capitalized">
                                  {attraction.name}

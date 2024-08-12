@@ -132,12 +132,15 @@ function AirportsByRegion() {
                      <h3>{item.region}</h3>
                   </AccordionTitle>
                   {item.departments.map((department) => (
-                     <div key={department.department}>
+                     <div
+                        key={department.department}
+                        className="accordion-content"
+                     >
                         <h4>{department.department}</h4>
                         {department.cities.map((city) => (
                            <div key={city.city}>
                               <h5>{city.city}</h5>
-                              <ul className="accordion-content">
+                              <ul>
                                  {city.types.map((type) => (
                                     <li key={type.type}>
                                        <strong>Type:</strong> {type.type} <br />
