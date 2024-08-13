@@ -71,3 +71,19 @@
 h2 {
    padding-bottom: 0.9rem;
 }
+
+@media (max-width: 960px) {
+   .content {
+      /* padding: 0.9rem 2.4rem; */
+   }
+}
+
+@media (max-width: 760px) {
+   .menu {
+      overflow-x: scroll;
+   }
+
+   .content {
+      padding: 0.9rem 1.2rem;
+   }
+}

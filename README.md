@@ -85,6 +85,8 @@ Now it was time to show the counting of the data. So what I had in mind was call
 
 I just noticed that the last exercise (2.d) needed an exact structure and this has been what's been taking me a lot of time since translating seems to me as the easy part but getting rid of departments, cities,etc and just straightforwardly send the department, the city, etc, it seems like I'll have to review the whole code for this component.
 
+After making the clipboard as an output I needed to work on responsiveness, which was good for desktop and tablets since it was desktop-first. As I was working on the responsive I tried in various device-sizes and looked for browser compatibility. My job was finished and I'm really proud of what I could achieve.
+
 ### Documentation
 
 #### Step-by-Step Guide to Deploy and Start

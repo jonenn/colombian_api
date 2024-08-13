@@ -70,3 +70,38 @@ li {
 h5 {
    font-style: italic;
 }
+
+.accordion-content div ul {
+   padding-left: 0.69rem;
+}
+
+@media (max-width: 960px) {
+   .App {
+      width: 90vw;
+      margin-top: 3rem;
+   }
+
+   .accordion-content {
+      columns: 2;
+      padding-left: 2.1rem;
+   }
+}
+
+@media (max-width: 760px) {
+   .App {
+      width: 100vw;
+      margin-top: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+   }
+
+   .main-title p {
+      font-size: 0.72rem;
+      text-align: end;
+   }
+
+   .accordion-content {
+      columns: 1;
+      padding-left: 2.1rem;
+   }
+}
