@@ -1,11 +1,11 @@
 {
    "rewrites": [
-      { "source": "/colombia_dash/:path*", "destination": "/colombia_dash" }
+      { "source": "/colombia_dash/:path*", "destination": "/colombia_dash/" }
    ],
    "redirects": [
       {
          "source": "/",
-         "destination": "/colombia_dash",
+         "destination": "/colombia_dash/",
          "permanent": true
       }
    ]
