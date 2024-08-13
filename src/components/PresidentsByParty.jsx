@@ -81,7 +81,6 @@ function PresidentsByParty() {
                         {item.party}
                         {` (${item.count})`}
                      </h3>
-                     <h3>Count</h3>
                   </AccordionTitle>
                   <ul
                      className="accordion-content"

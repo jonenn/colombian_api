@@ -40,11 +40,24 @@
    background-color: rgba(167, 197, 207, 0.15);
    padding-top: 0.6rem;
    padding-bottom: 1.5rem;
-   border-radius: 0 0 0.6rem 0.6rem;
+   /* border-radius: 0 0 0.6rem 0.6rem; */
+   columns: 2;
+   column-fill: balance;
+   column-gap: 0.3rem;
    padding-left: 4.5rem;
+   border-bottom: 2px solid #c0d1f3;
 }
 
 li {
-   /* margin-left: 4.5rem; */
+   margin-left: 0.6rem;
    margin-top: 0.3rem;
+}
+
+.li--region {
+   margin-bottom: 0.6rem;
+   margin-top: 0;
+}
+
+h5 {
+   font-style: italic;
 }

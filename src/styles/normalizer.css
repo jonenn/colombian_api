@@ -34,7 +34,6 @@ body {
 }
 
 /* Remove list styles */
-ul,
 ol {
    list-style: none;
 }

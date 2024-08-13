@@ -71,11 +71,12 @@ function AirportsByDepas() {
             sortedData.map((item) => (
                <div key={item.department}>
                   <AccordionTitle
-                     onClick={() => toggleAccordion(item.region)}
+                     onClick={() => toggleAccordion(item.department)}
                      style={{
-                        borderRadius: expanded === item.region ? '' : '.3rem',
+                        borderRadius:
+                           expanded === item.department ? '' : '.3rem',
                      }}
-                     expanded={expanded === item.region}
+                     expanded={expanded === item.department}
                   >
                      <h3>
                         {item.department}
@@ -85,9 +86,10 @@ function AirportsByDepas() {
                   {item.cities.map((city) => (
                      <div
                         key={city.cityName}
-                        className="accordion-content"
+                        className="accordion-content col"
                         style={{
-                           display: expanded === item.party ? 'block' : 'none',
+                           display:
+                              expanded === item.department ? 'block' : 'none',
                         }}
                      >
                         <h4>{city.cityName}</h4>

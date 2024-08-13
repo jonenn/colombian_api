@@ -171,9 +171,9 @@ function AirportsByRegion() {
                               <h5>{city.city}</h5>
                               <ul>
                                  {city.types.map((type) => (
-                                    <li key={type.type}>
+                                    <li className="li--region" key={type.type}>
                                        <strong>Type:</strong> {type.type} <br />
-                                       <strong>Count:</strong> {type.count}
+                                       <strong>Qty:</strong> {type.count}
                                     </li>
                                  ))}
                               </ul>
