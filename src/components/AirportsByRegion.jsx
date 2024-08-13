@@ -50,43 +50,37 @@ function AirportsByRegion() {
          const regionName = await getARegion(regionId);
 
          if (!regionMap[regionName]) {
-            regionMap[regionName] = { departments: {} };
+            regionMap[regionName] = { departamento: {} };
          }
 
-         if (!regionMap[regionName].departments[departmentName]) {
-            regionMap[regionName].departments[departmentName] = { cities: {} };
-         }
-
-         if (
-            !regionMap[regionName].departments[departmentName].cities[cityName]
-         ) {
-            regionMap[regionName].departments[departmentName].cities[cityName] =
-               {
-                  types: {},
-                  count: 0,
-               };
+         if (!regionMap[regionName].departamento[departmentName]) {
+            regionMap[regionName].departamento[departmentName] = { ciudad: {} };
          }
 
          if (
-            !regionMap[regionName].departments[departmentName].cities[cityName]
-               .types[type]
+            !regionMap[regionName].departamento[departmentName].ciudad[cityName]
          ) {
-            regionMap[regionName].departments[departmentName].cities[
+            regionMap[regionName].departamento[departmentName].ciudad[
                cityName
-            ].types[type] = {
-               count: 0,
-            };
+            ] = { tipo: {} };
          }
 
-         const typeData =
-            regionMap[regionName].departments[departmentName].cities[cityName]
-               .types[type];
-         typeData.count += 1;
-         regionMap[regionName].departments[departmentName].cities[
+         if (
+            !regionMap[regionName].departamento[departmentName].ciudad[cityName]
+               .tipo[type]
+         ) {
+            regionMap[regionName].departamento[departmentName].ciudad[
+               cityName
+            ].tipo[type] = 0;
+         }
+
+         let tipoData =
+            regionMap[regionName].departamento[departmentName].ciudad[cityName]
+               .tipo[type];
+         tipoData += 1;
+         regionMap[regionName].departamento[departmentName].ciudad[
             cityName
-         ].count += 1;
-         regionMap[regionName].departments[departmentName].count =
-            (regionMap[regionName].departments[departmentName].count || 0) + 1;
+         ].tipo[type] = tipoData;
       });
 
       await Promise.all(promises);
@@ -94,102 +88,83 @@ function AirportsByRegion() {
       return regionMap;
    };
 
-   const displayData = useMemo(() => {
-      return Object.keys(groupedData).map((region) => {
-         const departments = Object.keys(groupedData[region].departments).map(
-            (department) => {
-               const cities = Object.keys(
-                  groupedData[region].departments[department].cities
-               ).map((city) => {
-                  const types = Object.keys(
-                     groupedData[region].departments[department].cities[city]
-                        .types
-                  ).map((type) => {
-                     const typeData =
-                        groupedData[region].departments[department].cities[city]
-                           .types[type];
-                     return {
-                        type,
-                        count: typeData.count,
-                     };
-                  });
-
-                  return {
-                     city,
-                     count: groupedData[region].departments[department].cities[
-                        city
-                     ].count,
-                     types,
-                  };
-               });
-
-               return {
-                  department,
-                  count: groupedData[region].departments[department].count,
-                  cities,
-               };
-            }
-         );
-
-         return {
-            region,
-            departments,
-         };
-      });
-   }, [groupedData]);
-
    const toggleAccordion = (region) => {
       setExpanded(expanded === region ? null : region);
+   };
+
+   const calculateTotalCount = (regionData) => {
+      return Object.values(regionData.departamento).reduce(
+         (deptAcc, dept) =>
+            deptAcc +
+            Object.values(dept.ciudad).reduce(
+               (cityAcc, city) =>
+                  cityAcc +
+                  Object.values(city.tipo).reduce(
+                     (tipoAcc, count) => tipoAcc + count,
+                     0
+                  ),
+               0
+            ),
+         0
+      );
    };
 
    return (
       <div>
          <div className="main-title">
             <h2>Airports by Region {`(${initialData.length})`}</h2>
-            <p>{measuredTime} sec</p>{' '}
+            <p>{measuredTime} sec</p>
          </div>
-         {displayData && displayData.length > 0 ? (
-            displayData.map((item) => (
-               <div key={item.region}>
+         {/* {JSON.stringify(groupedData)} */}
+         {Object.keys(groupedData).length > 0 ? (
+            Object.entries(groupedData).map(([region, regionData]) => (
+               <div key={region}>
                   <AccordionTitle
-                     onClick={() => toggleAccordion(item.region)}
+                     onClick={() => toggleAccordion(region)}
                      style={{
-                        borderRadius: expanded === item.region ? '' : '.3rem',
+                        borderRadius: expanded === region ? '' : '.3rem',
                      }}
-                     expanded={expanded === item.region}
+                     expanded={expanded === region}
                   >
                      <h3>
-                        {item.region}
-                        {` (${Object.values(item.departments).reduce(
-                           (acc, dept) => acc + dept.count,
-                           0
-                        )})`}
+                        {region}
+                        {` (${calculateTotalCount(regionData)})`}
                      </h3>
                   </AccordionTitle>
-                  {item.departments.map((department) => (
-                     <div
-                        key={department.department}
-                        className="accordion-content"
-                        style={{
-                           display: expanded === item.region ? 'block' : 'none',
-                        }}
-                     >
-                        <h4>{department.department}</h4>
-                        {department.cities.map((city) => (
-                           <div key={city.city}>
-                              <h5>{city.city}</h5>
-                              <ul>
-                                 {city.types.map((type) => (
-                                    <li className="li--region" key={type.type}>
-                                       <strong>Type:</strong> {type.type} <br />
-                                       <strong>Qty:</strong> {type.count}
-                                    </li>
-                                 ))}
-                              </ul>
-                           </div>
-                        ))}
-                     </div>
-                  ))}
+                  {Object.entries(regionData.departamento).map(
+                     ([departmentName, department]) => (
+                        <div
+                           key={departmentName}
+                           className="accordion-content"
+                           style={{
+                              display: expanded === region ? 'block' : 'none',
+                           }}
+                        >
+                           <h4>{departmentName}</h4>
+                           {Object.entries(department.ciudad).map(
+                              ([cityName, city]) => (
+                                 <div key={cityName}>
+                                    <h5>{cityName}</h5>
+                                    <ul>
+                                       {Object.entries(city.tipo).map(
+                                          ([tipo, count]) => (
+                                             <li
+                                                className="li--region"
+                                                key={tipo}
+                                             >
+                                                <strong>Type:</strong> {tipo}{' '}
+                                                <br />
+                                                <strong>Qty:</strong> {count}
+                                             </li>
+                                          )
+                                       )}
+                                    </ul>
+                                 </div>
+                              )
+                           )}
+                        </div>
+                     )
+                  )}
                </div>
             ))
          ) : (

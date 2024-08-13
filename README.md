@@ -81,7 +81,9 @@ After all this I needed to make the tabular UI, which for me is where the magic 
 
 Now that I'm fully immersed in CSS I needed to remake the hierarchy of the titles for them to be more intuitive. I wanted to get an image of a snowy forest to match the color palette I've chosen for the background.I started using CSS variables so I could keep the same padding along the whole project. I created some columns for displaying the whole info in a better way, but as I needed it to be displayed as a table I had to get rid of that. I believe the accordion could have been done in a way better way, but by the time I was running out of time.
 
-Now it was time to show the counting of the data. So what I had in mind was calling the length of the entities. For some others I had to use my old friend reduce method. After that I changed the url base path according to requirements and made some overall visual enhancements.
+Now it was time to show the counting of the data. So what I had in mind was calling the length of the entities. For some others I had to use my old friend reduce method. After that I changed the url base path according to requirements and made some overall visual enhancements. Now I was able to measure the response time of the API.
+
+I just noticed that the last exercise (2.d) needed an exact structure and this has been what's been taking me a lot of time since translating seems to me as the easy part but getting rid of departments, cities,etc and just straightforwardly send the department, the city, etc, it seems like I'll have to review the whole code for this component.
 
 ### Documentation
 
