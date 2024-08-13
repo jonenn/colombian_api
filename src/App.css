@@ -12,6 +12,15 @@
    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
+.main-title {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.main-title > p {
+   opacity: 0.3;
+}
+
 .title-container {
    padding: 0.66rem var(--general-padding);
    display: flex;

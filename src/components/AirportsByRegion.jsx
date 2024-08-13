@@ -6,6 +6,7 @@ function AirportsByRegion() {
    const [groupedData, setGroupedData] = useState([]);
    const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
+   const [measuredTime, setMeasuredTime] = useState(0);
 
    useEffect(() => {
       getAllAirports();
@@ -13,7 +14,12 @@ function AirportsByRegion() {
 
    const getAllAirports = async () => {
       try {
+         const start = new Date();
          const response = await getAirports();
+         const end = new Date();
+         const time = (end - start) / 1000;
+         console.log(time);
+         setMeasuredTime(time);
          setInitialData(response);
          const grouped = await groupByRegion(response);
          setGroupedData(grouped);
@@ -138,7 +144,10 @@ function AirportsByRegion() {
 
    return (
       <div>
-         <h2>Airports by Region {`(${initialData.length})`}</h2>
+         <div className="main-title">
+            <h2>Airports by Region {`(${initialData.length})`}</h2>
+            <p>{measuredTime} sec</p>{' '}
+         </div>
          {displayData && displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.region}>

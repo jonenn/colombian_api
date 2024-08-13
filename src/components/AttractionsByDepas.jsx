@@ -6,6 +6,7 @@ function AttractionsByDepas() {
    const [groupedData, setGroupedData] = useState([]);
    const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
+   const [measuredTime, setMeasuredTime] = useState(0);
 
    useEffect(() => {
       getAllAttractions();
@@ -13,8 +14,13 @@ function AttractionsByDepas() {
 
    const getAllAttractions = async () => {
       try {
+         const start = new Date();
          const response = await getAttractions();
          setInitialData(response);
+         const end = new Date();
+         const time = (end - start) / 1000;
+         console.log(time);
+         setMeasuredTime(time);
          const grouped = await groupByDepartment(response);
          setGroupedData(grouped);
       } catch (error) {
@@ -80,7 +86,12 @@ function AttractionsByDepas() {
 
    return (
       <div>
-         <h2>Attractions by Department & City {`(${initialData.length})`}</h2>
+         <div className="main-title">
+            <h2>
+               Attractions by Department & City {`(${initialData.length})`}
+            </h2>
+            <p>{measuredTime} sec</p>{' '}
+         </div>
          {displayData.length > 0 ? (
             displayData.map((item) => (
                <div key={item.department}>

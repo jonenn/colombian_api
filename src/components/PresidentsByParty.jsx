@@ -7,6 +7,7 @@ function PresidentsByParty() {
    const [sortedData, setSortedData] = useState([]);
    const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
+   const [measuredTime, setMeasuredTime] = useState(0);
 
    useEffect(() => {
       getAllPresidents();
@@ -14,7 +15,16 @@ function PresidentsByParty() {
 
    const getAllPresidents = async () => {
       try {
+         const start = new Date();
+         console.log(start);
+
          const response = await getPresidents();
+
+         const end = new Date();
+         const time = (end - start) / 1000;
+         console.log(time);
+         setMeasuredTime(time);
+
          displayData(response);
          setInitialData(response);
       } catch (error) {
@@ -66,7 +76,10 @@ function PresidentsByParty() {
 
    return (
       <>
-         <h2>Presidents by Political Party {`(${initialData.length})`} </h2>
+         <div className="main-title">
+            <h2>Presidents by Political Party {`(${initialData.length})`} </h2>
+            <p>{measuredTime} sec</p>
+         </div>
          {sortedData.length > 0 ? (
             sortedData.map((item) => (
                <div key={item.party}>

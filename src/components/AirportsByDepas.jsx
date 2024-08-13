@@ -6,6 +6,7 @@ function AirportsByDepas() {
    const [groupedData, setGroupedData] = useState([]);
    const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
+   const [measuredTime, setMeasuredTime] = useState(0);
 
    useEffect(() => {
       getAllAirports();
@@ -13,7 +14,12 @@ function AirportsByDepas() {
 
    const getAllAirports = async () => {
       try {
+         const start = new Date();
          const response = await getAirports();
+         const end = new Date();
+         const time = (end - start) / 1000;
+         console.log(time);
+         setMeasuredTime(time);
          setInitialData(response);
          const grouped = await groupByDepartment(response);
          setGroupedData(grouped);
@@ -66,7 +72,10 @@ function AirportsByDepas() {
 
    return (
       <div>
-         <h2>Airports by Department & City {`(${initialData.length})`}</h2>
+         <div className="main-title">
+            <h2>Airports by Department & City {`(${initialData.length})`}</h2>
+            <p>{measuredTime} sec</p>{' '}
+         </div>
          {sortedData ? (
             sortedData.map((item) => (
                <div key={item.department}>
