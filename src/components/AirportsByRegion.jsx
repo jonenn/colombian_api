@@ -1,12 +1,13 @@
 import { getAirports, getRegionById } from '../services/getRequests';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AccordionTitle } from './AccordionTitle';
 
 function AirportsByRegion() {
-   const [groupedData, setGroupedData] = useState([]);
+   const [groupedData, setGroupedData] = useState({});
    const [initialData, setInitialData] = useState([]);
    const [expanded, setExpanded] = useState(null);
    const [measuredTime, setMeasuredTime] = useState(0);
+   const [copyVerified, setCopyVerified] = useState(false);
 
    useEffect(() => {
       getAllAirports();
@@ -74,13 +75,9 @@ function AirportsByRegion() {
             ].tipo[type] = 0;
          }
 
-         let tipoData =
-            regionMap[regionName].departamento[departmentName].ciudad[cityName]
-               .tipo[type];
-         tipoData += 1;
          regionMap[regionName].departamento[departmentName].ciudad[
             cityName
-         ].tipo[type] = tipoData;
+         ].tipo[type] += 1;
       });
 
       await Promise.all(promises);
@@ -109,13 +106,39 @@ function AirportsByRegion() {
       );
    };
 
+   const copyToClipboard = () => {
+      try {
+         const dataWithRegionKey = { region: groupedData };
+         const dataString = JSON.stringify(dataWithRegionKey, null, 2);
+         navigator.clipboard.writeText(dataString);
+         setCopyVerified(true);
+      } catch (error) {
+         console.error('Failed to copy data to clipboard:', error);
+      }
+   };
+
    return (
       <div>
          <div className="main-title">
             <h2>Airports by Region {`(${initialData.length})`}</h2>
+            {Object.keys(groupedData).length > 0 && (
+               <button
+                  onClick={copyToClipboard}
+                  style={{
+                     backgroundColor: copyVerified
+                        ? '#A7CFCC'
+                        : 'rgba(37, 64, 97, 0.6)',
+                     transition: 'background-color 600ms ease-out',
+                     outline: 'none',
+                     fontSize: '.81rem',
+                  }}
+               >
+                  Copy to Clipboard
+               </button>
+            )}
             <p>{measuredTime} sec</p>
          </div>
-         {/* {JSON.stringify(groupedData)} */}
+         {/* <div>{JSON.stringify(groupedData)}</div> */}
          {Object.keys(groupedData).length > 0 ? (
             Object.entries(groupedData).map(([region, regionData]) => (
                <div key={region}>
